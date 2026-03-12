@@ -14,21 +14,13 @@ Uygulama arka planda güçlü bir hibrit LLM mimarisi kullanmaktadır:
 2. **Canlı Müzakere Motoru (Gemini 3.1 Flash-Lite):** İnsan müdahalesi olmadan, sadece "Moderatör" ajanının yönlendirmesiyle bu 100 karakter canlı yayında birbirleriyle bürokratik dilde tartışır, itiraz sunar ve müzakere eder.
 3. **Müfettiş (Gemini 2.5 Flash):** Toplantı bitiminde tüm transkripti okur, kurumlar arası muhalefet şerhlerini, alınan ortak kararları ve aksiyon planlarını **resmi devlet tutanağı** üslubuyla raporlar.
 
-## 🚀 Tek Tıkla Kendi Sunucuna Kur (Tamamen Ücretsiz)
+## 💻 Kendi Bilgisayarında Çalıştır (Local Development)
 
-Uygulamanın gücü, **herkesin kendi yapay zeka anahtarıyla ve kendi sunucusunda** bağımsız çalışabilmesinden gelir. 
+Uygulamanın gücü, **herkesin kendi bilgisayarında ve kendi yapay zeka anahtarıyla** tamamen bağımsız ve limitsiz çalışabilmesinden gelir. 
 
-Projede arka planda aynı anda 100 yapay zeka ajanı doğurulduğu için standart ücretsiz sunucularda limitlere (Timeout) takılabilirsiniz. Fakat **Vercel**, Hobby (Ücretsiz) paketlerinde bile Next.js projelerine tam 60 saniyelik harika bir işlem süresi tanır. Mimarimiz Vercel altyapısı için (%100 ücretsiz çalışacak şekilde) optimize edilmiştir.
+Projede arka planda aynı anda 100 yapay zeka ajanı doğurulduğu için standart ücretsiz bulut sunucularında limitlere (Timeout) takılabilirsiniz. Bu devasa işlem gücünü kesintisiz deneyimlemek için uygulamayı kendi bilgisayarınızda (localhost) çalıştırmalısınız.
 
-Aşağıdaki butona basarak projeyi saniyeler içinde **kendi Vercel hesabınıza** kurabilir ve sınırları kaldırabilirsiniz:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpckolog35%2Fai-toplanti-simulasyonu)
-
-*Not: Sistem güvenlik odaklıdır, dışarıdan veya arkaplanda gizli bir API Anahtarı barındırmaz. Kurulumdan sonra siteye girince, kendi Google AI Studio hesabınızdan aldığınız şahsi API anahtarını arayüze girerek simülasyonu başlatabilirsiniz.*
-
-## 💻 Kurulum (Local Development)
-
-Projeyi bilgisayarınızda (localhost) çalıştırmak için:
+Projeyi bilgisayarınızda çalıştırmak için:
 
 ```bash
 # Projeyi klonlayın
