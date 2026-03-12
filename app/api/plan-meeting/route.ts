@@ -18,6 +18,9 @@ export async function POST(req: Request) {
     let object;
     let lastError;
 
+    const targetCount = apiTier === 'paid' ? '80' : '35';
+    const minCount = apiTier === 'paid' ? '70' : '20';
+
     for (const modelName of models) {
       try {
         const result = await generateObject({
@@ -32,11 +35,11 @@ export async function POST(req: Request) {
                 category: z.string().describe("Categorize this institution into one of the 5 main sectors: Bakanlıklar, Düzenleyici Kurumlar, Akademi, Özel Sektör, STK ve Odalar"),
                 systemPrompt: z.string().describe("The agent's specific persona, core beliefs, and instructions on how to behave in the meeting. Give them strong, sometimes conflicting viewpoints to make the meeting dynamic and realistic. They should use data and facts in their arguments."),
               })
-            ).min(20).max(120),
+            ).max(120),
           }),
           prompt: `ROL: Sen "Yüksek Kapasiteli Stratejik Paydaş Analisti" ve "Türkiye Kamu-Özel Sektör Hiyerarşi Uzmanı"sın. Görevin, verilen konu için Türkiye'nin en büyük ve en teknik katılımlı sanal toplantı heyetini kurmaktır.
 
-HEDEF: Tam 100 farklı makam/kişi belirlemek.
+HEDEF: Tam ${targetCount} farklı makam/kişi belirlemek.
 
 GENİŞLEME ALGORİTMASI (Step-by-Step):
 
@@ -44,7 +47,7 @@ Google Search Kullanımı: İnterneti tara ve verilen KONU'YA ÖZEL (${topic}) T
 
 Dikey Derinlik Kuralı (Zorunlu): Sadece "Bakan" veya "Başkan" seviyesinde kalma. Bir kurumu listeye aldığında mutlaka o kurumun konuya özgü "Daire Başkanı", "Saha Operasyon Müdürü" veya "İhtisas Uzmanı" gibi mutfaktaki isimleri de listeye ekle.
 
-Sektörel Dağılım Kotası (100 Kişi İçin):
+Sektörel Dağılım Kotası (${targetCount} Kişi İçin):
 - Bakanlıklar ve Bağlı Genel Müdürlükler: Sadece Bakanlar değil; Konuyla doğrudan veya dolaylı ilgili Genel Müdürlüklerin ve Strateji Geliştirme birimlerinin Daire Başkanları.
 - Düzenleyici Kurullar ve Ofisler: Konuyu regüle eden EPDK, Rekabet Kurumu, BDDK, RTÜK, SPK, Kalkınma Ajansları vb. teknik birim yöneticileri.
 - Akademi ve Araştırma: Üniversite Rektörleri + Uzman Enstitü Müdürleri + Konuyla İlgili Kürsü Başkanları + Saha Uzmanı Akademisyenler.
@@ -54,7 +57,7 @@ Sektörel Dağılım Kotası (100 Kişi İçin):
 DETAYLI TALİMATLAR:
 Temsil Nedeni: Her katılımcı için neden orada olduğunu (Örn: "Bölgesel Kalkınma Planındaki istihdam hedeflerini savunmak") belirt.
 
-Çıktı Formatı: SADECE JSON. Çıktıdaki JSON array'i (katılımcı listesi) KESİNLİKLE EN AZ 80 KİŞİDEN OLUŞMALIDIR. DİKKAT: Kelime limitine takılmamak için 'systemPrompt' verisini MAKSİMUM 1 KISA CÜMLE (10 kelimeyi geçmeyecek şekilde) yazmalısın. Aksi takdirde liste yarıda kesilir ve sistem çöker! 'institution' verisi 'Kurum/Kuruluş', 'title' verisi 'Makam/Birim', 'category' verisi 'Sektör', 'systemPrompt' verisi de 'Çok kısa Katılım Gerekçesi' olarak doldurulacaktır.
+Çıktı Formatı: SADECE JSON. Çıktıdaki JSON array'i (katılımcı listesi) KESİNLİKLE EN AZ ${minCount} KİŞİDEN OLUŞMALIDIR. DİKKAT: Kelime limitine takılmamak için 'systemPrompt' verisini MAKSİMUM 1 KISA CÜMLE (10 kelimeyi geçmeyecek şekilde) yazmalısın. Aksi takdirde liste yarıda kesilir ve sistem çöker! 'institution' verisi 'Kurum/Kuruluş', 'title' verisi 'Makam/Birim', 'category' verisi 'Sektör', 'systemPrompt' verisi de 'Çok kısa Katılım Gerekçesi' olarak doldurulacaktır.
 KONU: "${topic}"`,
         });
 
