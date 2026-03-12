@@ -18,8 +18,8 @@ export async function POST(req: Request) {
     let object;
     let lastError;
 
-    const targetCount = apiTier === 'paid' ? '80' : '35';
-    const minCount = apiTier === 'paid' ? '70' : '20';
+    const targetCount = '100';
+    const minCount = '80';
 
     for (const modelName of models) {
       try {
