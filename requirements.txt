@@ -1,6 +1,0 @@
-streamlit
-crewai
-crewai-tools
-langchain-google-genai
-fpdf
-python-dotenv
